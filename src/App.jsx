@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 import StartGame from "./Components/StartGame";
 import Game from "./Components/Game";
@@ -54,11 +54,11 @@ function App() {
     // Mapear cada letra e transformar em pequena
     const newResp = arrayResp.map((item) => item.toLowerCase());
 
+    setGameStage(stages[1].name);
+
     setCategory(ramdomCategory);
     setResp(newResp);
     setPalavra(resposta);
-
-    setGameStage(stages[1].name);
   };
 
   const GameEnd = (palavra) => {
@@ -85,6 +85,9 @@ function App() {
   const ResetGame = () => {
     setGameStage(stages[0].name);
     setScore(0);
+    setTentativas(3);
+    setLetrasAdivinhadas([]);
+    setLetrasErradas([]);
   };
 
   useEffect(() => {
@@ -95,6 +98,17 @@ function App() {
       setLetrasErradas([]);
     }
   }, [tentativas]);
+
+  useEffect(() => {
+    const unicasLetras = [...new Set(resp)];
+
+    if (
+      letrasadivinhadas.length === unicasLetras.length &&
+      letrasadivinhadas != ""
+    ) {
+      ResetGame();
+    }
+  }, [letrasadivinhadas]);
 
   return (
     <div className="App">
