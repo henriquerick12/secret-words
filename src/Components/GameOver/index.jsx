@@ -1,10 +1,15 @@
+/* eslint-disable react/prop-types */
 
-const GameOver = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-}
+import "./styles.css";
+
+const GameOver = ({ ResetGame, score }) => {
+  return (
+    <div>
+      <h1>GameOver</h1>
+      <h2>Pontuação: {score}</h2>
+      <button onClick={ResetGame}>Reiniciar Jogo</button>
+    </div>
+  );
+};
 
 export default GameOver;
